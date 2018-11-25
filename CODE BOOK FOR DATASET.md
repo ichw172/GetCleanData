@@ -1,14 +1,12 @@
-##CODE BOOK FOR DATASET (FROM OUTPUT_DS.TXT)
+# CODE BOOK FOR DATASET (FROM OUTPUT_DS.TXT)
 
-experiment_id				- Identifies the experiment that was conducted
-subject_id					- Identifies the subject of the experiment
-activity_name				- Identifies the activity that the subject was performing in the experiment
-                      .	WALKING
-                      .	WALKING_UPSTAIRS
-                      .	WALKING_DOWNSTAIRS
-                      .	SITTING
-                      .	STANDING
-                      .	LAYING
+experiment_id - Identifies the experiment that was conducted
+
+subject_id - Identifies the subject of the experiment
+
+activity_name	- Identifies the activity that the subject was performing in the experiment
+              
+(WALKING, WALKING_UPSTAIRS,WALKING_DOWNSTAIRS,SITTING,STANDING,LAYING)
 
 
 <t/f>BodyAcc_<mean/std>_<X/Y/Z>	-     Mean/standard deviation of the time/frequency domain signals                                       from the accelerometer in the X/Y/Z direction
