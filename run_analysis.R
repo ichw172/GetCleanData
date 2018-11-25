@@ -14,6 +14,7 @@ setwd("C:\\Users\\ideapad 500\\Documents\\Ass\\UCI HAR Dataset")
 #-------------------------------------------------------------------------
 library(dplyr)
 library(reshape)
+library(reshape2)
 
 #*******************************************************************************************
 # Step 1 - Merges the training and the test sets to create one data set                    #
@@ -152,18 +153,21 @@ df_xy_meanstd <- df_xy_meanstd %>% select(-activity_id)
 names(df_xy_meanstd) = c(v_fname,'experiment_id','subject_id','activity_name')
 
 
-## Transpose the dataset
-df_xy_meanstd_T <- melt(df_xy_meanstd, id=c("experiment_id","subject_id","activity_name"))
-
 #************************************************************************************************
 # Step 5 - From the data set in step 4, creates a second, independent tidy data set with the    #
 #            average of each variable for each activity and each subject.                       #
 #************************************************************************************************
 
+## Transpose the dataset
+df_xy_meanstd_m <- melt(df_xy_meanstd, id=c("experiment_id","subject_id","activity_name"),
+                        measure.vars = c(v_fname))
 
 ## Average the value for each activity_name and subject_id
-df_xy_meanstd_T_sum <- df_xy_meanstd_T %>% group_by(activity_name,subject_id,variable) %>% 
-  summarise(average=mean(value))
+#df_xy_meanstd_T_sum <- df_xy_meanstd_T %>% group_by(activity_name,subject_id,variable) %>% 
+#  summarise(average=mean(value))
+
+## Transpost back the data
+df_xy_meanstd_sum <- dcast(df_xy_meanstd_m, subject_id+activity_name ~ variable, mean)
 
 
 #**********************************************************************************************
@@ -173,8 +177,8 @@ df_xy_meanstd_T_sum <- df_xy_meanstd_T %>% group_by(activity_name,subject_id,var
 out_fileDS = 'output_ds.txt'          #Name of the file to write to for first dataset
 out_fileDS_sum = 'output_ds_sum.txt'  #Name of the file to write to for second i.e. summary dataset
 
-write.table(x=df_xy_meanstd_T,file=out_fileDS, row.name=FALSE )
-write.table(x=df_xy_meanstd_T_sum,file=out_fileDS_sum, row.name=FALSE )
+write.table(x=df_xy_meanstd,file=out_fileDS)
+write.table(x=df_xy_meanstd_sum ,file=out_fileDS_sum)
 
 
 #**********************************************************************************************
@@ -189,7 +193,6 @@ View(dataset1)
 
 dataset2 <- read.table(file=out_fileDS_sum,header=TRUE)
 View(dataset2)
-
 
 
 

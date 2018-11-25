@@ -30,6 +30,5 @@ Procedure to tidy dataset
 7.	Select the columns containing the filtered feature set into a new dataset.
 8.	Read the activity label file into a dataset and merge with the dataset to get the activity name.
 9.	Label the dataset with the descriptive names from the feature name file.
-10.	Transpose the dataset to get a "skinny dataset".
-11.	Aggregate the dataset to get the average of the variables. 
+10.	Melt and recast to get the average of the variables. 
 
